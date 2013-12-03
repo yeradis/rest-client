@@ -48,10 +48,8 @@ public class XMLIndentUtilTest {
         String inXml = this.readTextFile("input_NONE.xml");
         String expectedResult = this.readTextFile("input_UTF.xml");
         String result = XMLIndentUtil.getIndented(inXml);
-        System.out.println(expectedResult.getBytes().length);
-        System.out.println("Expected:\n" + expectedResult);
-        System.out.println(result.getBytes().length);
-        System.out.println("Is:\n" + result);
+        System.out.println(String.format("Expected bytes: %d content:\n%s", expectedResult.getBytes().length,expectedResult));
+        System.out.println(String.format("Is bytes: %d content:\n%s", result.getBytes().length, result));
         assertEquals(expectedResult, result);
     }
 
