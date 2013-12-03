@@ -1,11 +1,12 @@
 package org.wiztools.restclient.util;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test of {@link XMLIndentUtil}.
@@ -47,7 +48,9 @@ public class XMLIndentUtilTest {
         String inXml = this.readTextFile("input_NONE.xml");
         String expectedResult = this.readTextFile("input_UTF.xml");
         String result = XMLIndentUtil.getIndented(inXml);
+        System.out.println(expectedResult.getBytes().length);
         System.out.println("Expected:\n" + expectedResult);
+        System.out.println(result.getBytes().length);
         System.out.println("Is:\n" + result);
         assertEquals(expectedResult, result);
     }
