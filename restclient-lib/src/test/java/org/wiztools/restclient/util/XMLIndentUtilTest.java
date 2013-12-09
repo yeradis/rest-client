@@ -1,26 +1,25 @@
 package org.wiztools.restclient.util;
 
-import org.junit.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import static org.junit.Assert.assertEquals;
+
+import java.io.File;
+import org.junit.Test;
+import org.wiztools.commons.Charsets;
+import org.wiztools.commons.FileUtil;
 
 /**
  * Test of {@link XMLIndentUtil}.
  */
 public class XMLIndentUtilTest {
-    private static final int BUFFER_SIZE = 0x10000; // input buffer size in bytes (64 KB)
-
     /**
      * Test of XMLIndentUtil.getIndented(String inXml) with UTF-8 Encoding.
      */
     @Test
     public void testGetIndentedUTF() throws Exception {
-        String inXml = this.readTextFile("input_UTF.xml");
-        String expectedResult = this.readTextFile("input_UTF.xml");
+        String inXml = FileUtil.getContentAsString(
+                new File("src/test/resources/input_UTF.xml"), Charsets.UTF_8);
+        String expectedResult = FileUtil.getContentAsString(
+                new File("src/test/resources/input_UTF.xml"), Charsets.UTF_8);
         String result = XMLIndentUtil.getIndented(inXml);
         System.out.println("Expected:\n" + expectedResult);
         System.out.println("Is:\n" + result);
@@ -32,8 +31,10 @@ public class XMLIndentUtilTest {
      */
     @Test
     public void testGetIndentedISO() throws Exception {
-        String inXml = this.readTextFile("input_ISO.xml");
-        String expectedResult = this.readTextFile("input_ISO.xml");
+        String inXml = FileUtil.getContentAsString(
+                new File("src/test/resources/input_ISO.xml"), Charsets.ISO_8859_1);
+        String expectedResult = FileUtil.getContentAsString(
+                new File("src/test/resources/input_ISO.xml"), Charsets.ISO_8859_1);
         String result = XMLIndentUtil.getIndented(inXml);
         System.out.println("Expected:\n" + expectedResult);
         System.out.println("Is:\n" + result);
@@ -45,31 +46,13 @@ public class XMLIndentUtilTest {
      */
     @Test
     public void testGetIndentedNONE() throws Exception {
-        String inXml = this.readTextFile("input_NONE.xml");
-        String expectedResult = this.readTextFile("input_UTF.xml");
+        String inXml = FileUtil.getContentAsString(
+                new File("src/test/resources/input_NONE.xml"), Charsets.US_ASCII);
+        String expectedResult = FileUtil.getContentAsString(
+                new File("src/test/resources/input_UTF.xml"), Charsets.UTF_8);
         String result = XMLIndentUtil.getIndented(inXml);
-        System.out.println(String.format("Expected bytes: %d content:\n%s", expectedResult.getBytes().length,expectedResult));
-        System.out.println(String.format("Is bytes: %d content:\n%s", result.getBytes().length, result));
+        System.out.println("Expected:\n" + expectedResult);
+        System.out.println("Is:\n" + result);
         assertEquals(expectedResult, result);
     }
-
-    /**
-     * Read a file and return its content as text.
-     *
-     * @param fileName file to read
-     * @return the file's content as text
-     */
-    private String readTextFile(String fileName) throws IOException {
-        InputStream in = this.getClass().getClassLoader().getResourceAsStream(fileName);
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        byte[] data = new byte[BUFFER_SIZE];
-        int count;
-        while ((count = in.read(data, 0, BUFFER_SIZE)) != -1) {
-            out.write(data, 0, count);
-        }
-        System.out.println("Read " + out.size() + " bytes from " + fileName);
-
-        return out.toString();
-    }
-
 }

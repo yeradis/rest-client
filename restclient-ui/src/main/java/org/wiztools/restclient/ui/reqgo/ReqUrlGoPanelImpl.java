@@ -3,6 +3,7 @@ package org.wiztools.restclient.ui.reqgo;
 import com.jidesoft.swing.AutoCompletion;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.*;
 import java.io.IOException;
@@ -30,8 +31,8 @@ public class ReqUrlGoPanelImpl extends JPanel implements ReqUrlGoPanel {
     
     @Inject private RESTUserInterface rest_ui;
     
-    private ImageIcon icon_go = UIUtil.getIconFromClasspath("org/wiztools/restclient/go.png");
-    private ImageIcon icon_stop = UIUtil.getIconFromClasspath("org/wiztools/restclient/stop.png");
+    private final ImageIcon icon_go = UIUtil.getIconFromClasspath("org/wiztools/restclient/go.png");
+    private final ImageIcon icon_stop = UIUtil.getIconFromClasspath("org/wiztools/restclient/stop.png");
     
     private static final String TEXT_GO = "Go!";
     private static final String TEXT_STOP = "Stop!";
@@ -101,9 +102,15 @@ public class ReqUrlGoPanelImpl extends JPanel implements ReqUrlGoPanel {
         try {
             List<String> urls = UrlListPersistUtil.load();
             if(!urls.isEmpty()) {
+                // We need dimension for Issue 196:
+                final Dimension d = jcb_url.getPreferredSize();
+                
                 for(String url: urls) {
                     jcb_url.addItem(url);
                 }
+                
+                // Set the dimension for Issue 196:
+                jcb_url.setPreferredSize(d);
             }
         }
         catch(IOException ex) {
