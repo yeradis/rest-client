@@ -1,11 +1,12 @@
 package org.wiztools.restclient.util;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
 import org.junit.Test;
 import org.wiztools.commons.Charsets;
 import org.wiztools.commons.FileUtil;
+
+import java.io.File;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test of {@link XMLIndentUtil}.
@@ -23,7 +24,7 @@ public class XMLIndentUtilTest {
         String result = XMLIndentUtil.getIndented(inXml);
         System.out.println("Expected:\n" + expectedResult);
         System.out.println("Is:\n" + result);
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult.replaceAll("\\r\\n?", "\n"), result.replaceAll("\\r\\n?", "\n"));
     }
 
     /**
@@ -38,7 +39,7 @@ public class XMLIndentUtilTest {
         String result = XMLIndentUtil.getIndented(inXml);
         System.out.println("Expected:\n" + expectedResult);
         System.out.println("Is:\n" + result);
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult.replaceAll("\\r\\n?", "\n"), result.replaceAll("\\r\\n?", "\n"));
     }
 
     /**
@@ -53,6 +54,6 @@ public class XMLIndentUtilTest {
         String result = XMLIndentUtil.getIndented(inXml);
         System.out.println("Expected:\n" + expectedResult);
         System.out.println("Is:\n" + result);
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult.replaceAll("\\r\\n?", "\n"), result.replaceAll("\\r\\n?", "\n"));
     }
 }
